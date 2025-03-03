@@ -18,6 +18,7 @@ public class GameChoice {
     @Column(nullable = false)
     private String title;
 
+    @Column(nullable = true)
     private String description;
 
     @Column(name = "create_date", nullable = false)
@@ -26,6 +27,7 @@ public class GameChoice {
     @Column(name = "update_date", nullable = false)
     private LocalDateTime updateDate;
 
+    @Column(nullable = true)
     private LocalDateTime deleteDate;
 }
 // Getters and setters

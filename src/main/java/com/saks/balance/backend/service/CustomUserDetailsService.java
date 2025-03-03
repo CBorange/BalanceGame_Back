@@ -5,10 +5,14 @@ import com.saks.balance.backend.entity.QUser;
 import com.saks.balance.backend.entity.User;
 import com.saks.balance.backend.model.CustomUserDetails;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import org.springframework.data.domain.Pageable;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,5 +29,12 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         return new CustomUserDetails(foundUser);
+    }
+
+    public List<User> getAllUser(){
+        List<User> users = queryFactory
+                            .selectFrom(QUser.user)
+                            .fetch();
+        return users;
     }
 }

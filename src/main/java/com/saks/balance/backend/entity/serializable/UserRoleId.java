@@ -12,6 +12,8 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @Getter
 @Setter
+///
+/// UserRole 테이블 다중키 모델
 public class UserRoleId implements Serializable {
     @Column(name = "user_id", nullable = false)
     private String userId;

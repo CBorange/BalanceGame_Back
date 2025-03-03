@@ -3,9 +3,9 @@ package com.saks.balance.states;
 public class GlobalStates {
     // 유저 관련
     public enum Authority{
-        Admin,
-        User,
-        Host
+        Admin,  // 관리자
+        User,   // 일반
+        Host    // 게임 호스트
     }
 
     public enum AccoutState{

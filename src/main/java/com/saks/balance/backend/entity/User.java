@@ -18,10 +18,6 @@ public class User {
     @Column(name = "id", nullable = false)
     private String id;
 
-    @ManyToOne
-    @JoinColumn(name = "age_group_id", nullable = false)
-    private AgeGroup ageGroup;
-
     @Column(name = "username", nullable = false)
     private String username;
 

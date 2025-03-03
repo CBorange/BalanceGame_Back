@@ -17,4 +17,7 @@ public class AgeGroup {
 
     @Column(name = "description")
     private String description;
+
+    @Column(name = "range")
+    private String range;
 }

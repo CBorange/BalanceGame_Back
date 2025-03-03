@@ -22,6 +22,7 @@ public class GameTopic {
     @Column(nullable = false)
     private String title;
 
+    @Column(nullable = true)
     private String description;
 
     @Column(nullable = false, precision = 10, scale = 2)
@@ -37,6 +38,7 @@ public class GameTopic {
     @Column(name = "update_date", nullable = false)
     private LocalDateTime updateDate;
 
+    @Column(nullable = true)
     private LocalDateTime deleteDate;
 
     @Column(name = "due_date", nullable = false)
