@@ -2,17 +2,24 @@ package com.saks.balance.backend.entity;
 
 import com.saks.balance.states.GlobalStates;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity(name = "user")
+@Entity(name = "app_user")
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class User {
     @Id
     @Column(name = "id", nullable = false)
@@ -51,6 +58,12 @@ public class User {
 
     @Column(name = "age", nullable = false)
     private int age;
+
+    @Column(name = "introduce", nullable = true)
+    private String introduce;
+
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal cash;
 
     @OneToMany(mappedBy = "user")
     private List<UserRole> userRoles;

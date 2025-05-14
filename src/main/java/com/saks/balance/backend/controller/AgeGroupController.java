@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AgeGroupController {
     private final AgeGroupService ageGroupService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<List<AgeGroup>> findAll(){
         return ResponseEntity.ok(ageGroupService.getAll());
     }
