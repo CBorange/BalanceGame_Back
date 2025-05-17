@@ -3,7 +3,6 @@ package com.saks.balance.backend.entity;
 import com.saks.balance.backend.entity.serializable.UserRoleId;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Entity(name = "user_role")

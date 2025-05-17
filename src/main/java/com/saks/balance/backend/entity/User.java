@@ -65,7 +65,7 @@ public class User {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal cash;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<UserRole> userRoles;
 }
 

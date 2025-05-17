@@ -3,9 +3,7 @@ package com.saks.balance.backend.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.saks.balance.backend.dto.SignupRequest;
 import com.saks.balance.backend.entity.Role;
 import com.saks.balance.backend.entity.User;
@@ -17,8 +15,6 @@ import com.saks.balance.backend.repository.UserRoleRepository;
 import com.saks.balance.states.GlobalStates;
 
 import jakarta.persistence.EntityNotFoundException;
-
-import static com.saks.balance.backend.entity.QUser.user;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

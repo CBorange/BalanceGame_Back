@@ -13,6 +13,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.saks.balance.backend.model.JwtAuthenticationFilter;
 import com.saks.balance.backend.model.JwtTokenProvider;
+import com.saks.balance.backend.model.authentication.CustomAccessDeniedHandler;
+import com.saks.balance.backend.model.authentication.CustomAuthenticationEntryPont;
 
 @Configuration
 @EnableWebSecurity
@@ -20,6 +22,12 @@ public class SecurityConfig {
 
     @Autowired
     private JwtTokenProvider tokenProvider;
+
+    @Autowired
+    private CustomAccessDeniedHandler customAccessDeniedHandler;
+
+    @Autowired 
+    private CustomAuthenticationEntryPont customAuthenticationEntryPont;
 
     // URL Route 시, DispatcherServlet 동작 전 Filter 단계에서 처리할 Spring Security Filter Bean 등록 및 설정
     // Spring Security는 기본적으로 Cookie, Session을 사용하여 유저정보를 저장한다.
@@ -29,7 +37,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authorizeHttpRequests) -> {
-            authorizeHttpRequests.anyRequest().permitAll();
+            authorizeHttpRequests
+                .requestMatchers("/age-group").hasRole("Admin")
+                .anyRequest().permitAll();
+        })
+        .exceptionHandling((exceptionHanding) -> {
+            exceptionHanding.accessDeniedHandler(customAccessDeniedHandler)
+            .authenticationEntryPoint(customAuthenticationEntryPont);
         });
         
         http.csrf((csrf) -> {

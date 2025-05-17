@@ -5,6 +5,9 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,6 +15,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
+
+import com.saks.balance.backend.controller.AgeGroupController;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
@@ -32,6 +37,7 @@ public class JwtTokenProvider {
 
     private final UserDetailsService userDetailsService;
     private SecretKey secretKey;
+    private final Logger logger = LoggerFactory.getLogger(JwtTokenProvider.class);
 
     @PostConstruct
     protected void init(){
@@ -51,7 +57,7 @@ public class JwtTokenProvider {
                 .and()
                 .subject(myName)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + tokenExpirationTime))
+                .expiration(new Date(System.currentTimeMillis() + tokenExpirationTime * 1000))
                 .signWith(secretKey)
                 .compact();
 
@@ -74,6 +80,7 @@ public class JwtTokenProvider {
             return !Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(jwtToken).getPayload().getExpiration()
                     .before(new Date(System.currentTimeMillis()));
         } catch (Exception e){
+            logger.error("유효하지 않은 Jwt 토큰", e);
             return false;
         }
     }
