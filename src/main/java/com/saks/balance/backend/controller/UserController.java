@@ -47,12 +47,8 @@ public class UserController {
     public ResponseEntity<String> signIn(@RequestBody @Valid SigninRequest request){
         UserDetails user = userDetailsService.loadUserByUsername(request.getId());
         
-        try{
-            if(!userService.validatePassword(request.getId(), request.getPassword())){
-                return ResponseEntity.badRequest().body("비밀번호가 일치하지 않습니다.");
-            }
-        } catch(CustomExceptions.NoEntityException ex){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        if(!userService.validatePassword(request.getId(), request.getPassword())){
+            return ResponseEntity.badRequest().body("비밀번호가 일치하지 않습니다.");
         }
         
         String token = tokenProvider.generateToken(user);

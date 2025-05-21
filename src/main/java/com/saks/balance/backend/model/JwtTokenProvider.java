@@ -48,14 +48,14 @@ public class JwtTokenProvider {
     public String generateToken(UserDetails userDetails){
         Map<String, Object> claims = new HashMap<>();
 
-        String myName = userDetails.getUsername();
-        claims.put("myName", myName);
+        String userName = userDetails.getUsername();
+        claims.put("userName", userName);
 
         return Jwts.builder()
                 .claims()
-                .add("myName", myName)
+                .add("userName", userName)
                 .and()
-                .subject(myName)
+                .subject(userName)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + tokenExpirationTime * 1000))
                 .signWith(secretKey)

@@ -1,7 +1,5 @@
 package com.saks.balance.backend.dto;
 
-import org.hibernate.validator.constraints.Range;
-
 import com.saks.balance.states.GlobalStates;
 
 import jakarta.validation.constraints.Max;
