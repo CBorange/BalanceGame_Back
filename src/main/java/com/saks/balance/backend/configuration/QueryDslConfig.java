@@ -1,4 +1,4 @@
-package com.saks.balance.backend;
+package com.saks.balance.backend.configuration;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;

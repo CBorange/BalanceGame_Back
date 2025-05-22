@@ -5,13 +5,18 @@ import java.time.LocalDateTime;
 
 import com.saks.balance.states.GlobalStates;
 
-import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class HostGameRequest {
-    @Nullable
+    @NotBlank
     private String hostId;
 
     @NotBlank
@@ -19,12 +24,13 @@ public class HostGameRequest {
 
     private String description;
 
-    @NotBlank
+    @NotNull
     private BigDecimal bet;
 
-    @NotBlank
+    @NotNull
     private GlobalStates.GameBetType betType;
 
-    @NotBlank
+    @NotNull
+    @Future
     private LocalDateTime dueDate;
 }

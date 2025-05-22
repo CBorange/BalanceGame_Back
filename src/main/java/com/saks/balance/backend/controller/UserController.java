@@ -4,15 +4,12 @@ import com.saks.balance.backend.dto.SigninRequest;
 import com.saks.balance.backend.dto.SignupRequest;
 import com.saks.balance.backend.entity.User;
 import com.saks.balance.backend.model.JwtTokenProvider;
-import com.saks.balance.backend.service.CustomExceptions;
 import com.saks.balance.backend.service.CustomUserDetailsService;
 import com.saks.balance.backend.service.UserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,8 +20,6 @@ import java.net.URI;
 import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @RestController
 @RequiredArgsConstructor

@@ -14,8 +14,6 @@ import com.saks.balance.backend.repository.UserRepository;
 import com.saks.balance.backend.repository.UserRoleRepository;
 import com.saks.balance.states.GlobalStates;
 
-import jakarta.persistence.EntityNotFoundException;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -37,16 +35,10 @@ public class UserService {
     }
 
     public boolean validatePassword(String userId, String rawPassword){
-        try{
-            User user = userRepository.getReferenceById(userId);
-            return passwordEncoder.matches(rawPassword, user.getPassword());
-        } catch(EntityNotFoundException ex){
-            throw new CustomExceptions.NoEntityException(String.format("[로그인 -> 비밀번호 검증] : 유저 ID %s 가 존재하지 않음.", userId));
-        }
-        
+        User user = userRepository.getReferenceById(userId);
+        return passwordEncoder.matches(rawPassword, user.getPassword());
     }
 
-    // TODO SnsType 연동 회원가입 개발 필요
     @Transactional
     public User signUpUser(SignupRequest request){
         User user = User.builder()

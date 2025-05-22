@@ -3,7 +3,6 @@ package com.saks.balance.backend.service;
 import java.time.LocalDateTime;
 
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,7 +29,7 @@ public class GameService {
 
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             if(auth == null || !auth.isAuthenticated())
-                throw new AuthenticationCredentialsNotFoundException("Authentication Token is invalid");
+                throw new AuthenticationCredentialsNotFoundException("Authentication Token is null or not authenticated.");
             UserDetails userDetails = (UserDetails)auth.getPrincipal();
             hostId = userDetails.getUsername();
         }

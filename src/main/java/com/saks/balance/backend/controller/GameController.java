@@ -9,16 +9,18 @@ import com.saks.balance.backend.dto.HostGameRequest;
 import com.saks.balance.backend.entity.GameTopic;
 import com.saks.balance.backend.service.GameService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@RestController("/game")
+@RestController()
 @RequiredArgsConstructor
+@RequestMapping("/game")
 public class GameController {
     private final Logger logger = LoggerFactory.getLogger(GameController.class);
     private final GameService gameService;
