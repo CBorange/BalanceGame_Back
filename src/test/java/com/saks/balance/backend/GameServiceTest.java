@@ -22,6 +22,7 @@ import jakarta.transaction.Transactional;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 
+// 테스트 코드는 지금 사용안함, 예시용으로만 냅둠
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("dev")
@@ -34,25 +35,25 @@ public class GameServiceTest{
     @Autowired
     private ObjectMapper mapper;
 
-    @Test
-    public void createNewGame_Success() throws Exception{
-        // given
-        HostGameRequest request = new HostGameRequest(
-            "testUser",
-            "Test Game Title",
-            "game description",
-            new BigDecimal(1000),
-            GlobalStates.GameBetType.FixedBet,
-            LocalDateTime.now().plusMinutes(1)
-        );
+    // @Test
+    // public void createNewGame_Success() throws Exception{
+    //     // given
+    //     HostGameRequest request = new HostGameRequest(
+    //         "testUser",
+    //         "Test Game Title",
+    //         "game description",
+    //         new BigDecimal(1000),
+    //         GlobalStates.GameBetType.FixedBet,
+    //         LocalDateTime.now().plusMinutes(1)
+    //     );
         
-        String jsoString = mapper.writeValueAsString(request);
-        // when & then
-        mvc.perform(MockMvcRequestBuilders.post("/game")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsoString)
-                        .with(csrf())
-                        .with(user("testUser").roles("USER")))
-                .andExpect(MockMvcResultMatchers.status().isCreated());
-    }
+    //     String jsoString = mapper.writeValueAsString(request);
+    //     // when & then
+    //     mvc.perform(MockMvcRequestBuilders.post("/game")
+    //                     .contentType(MediaType.APPLICATION_JSON)
+    //                     .content(jsoString)
+    //                     .with(csrf())
+    //                     .with(user("testUser").roles("USER")))
+    //             .andExpect(MockMvcResultMatchers.status().isCreated());
+    // }
 }

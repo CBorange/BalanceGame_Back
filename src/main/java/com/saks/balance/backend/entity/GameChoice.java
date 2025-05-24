@@ -1,11 +1,13 @@
 package com.saks.balance.backend.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "game_choice")
+@Builder
 public class GameChoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

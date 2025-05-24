@@ -7,10 +7,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.saks.balance.backend.dto.HostGameRequest;
+import com.saks.balance.backend.dto.MakeGameChoice;
+import com.saks.balance.backend.entity.GameChoice;
 import com.saks.balance.backend.entity.GameTopic;
 import com.saks.balance.backend.entity.User;
+import com.saks.balance.backend.repository.GameChoiceRepository;
 import com.saks.balance.backend.repository.GameTopicRepository;
 import com.saks.balance.backend.repository.UserRepository;
 import com.saks.balance.states.GlobalStates;
@@ -22,7 +26,9 @@ import lombok.RequiredArgsConstructor;
 public class GameService {
     private final UserRepository userRepository;
     private final GameTopicRepository gameTopicRepository;
+    private final GameChoiceRepository gameChoiceRepository;
 
+    @Transactional
     public GameTopic createNewGame(HostGameRequest request){
         String hostId = request.getHostId();
         if(request.getHostId() == null || request.getHostId().isBlank()){
@@ -48,6 +54,19 @@ public class GameService {
             .build();
 
         gameTopicRepository.save(newGame);
+
+        for (MakeGameChoice choice : request.getChoices()) {
+            GameChoice newChoice = GameChoice.builder()
+                .gameTopic(newGame)
+                .title(choice.getTitle())
+                .description(choice.getDescription())
+                .createDate(LocalDateTime.now())
+                .updateDate(LocalDateTime.now())
+                .build();
+
+            gameChoiceRepository.save(newChoice);
+        }
+        
         return newGame;
     }
 }

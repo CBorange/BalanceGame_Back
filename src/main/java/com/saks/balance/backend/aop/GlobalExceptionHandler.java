@@ -3,9 +3,11 @@ package com.saks.balance.backend.aop;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.saks.balance.backend.controller.GameController;
@@ -33,15 +35,10 @@ public class GlobalExceptionHandler {
                 firstError
         );
 
-        logger.error("DTO Validation Error 400 return: {}", ex.getBindingResult().getFieldError().getDefaultMessage());
-
-        // 추가로 전체 필드 오류 찍기
-        ex.getBindingResult().getFieldErrors().forEach(ee ->
-                logger.error("field: {}, rejected: {}, message: {}", ee.getField(), ee.getRejectedValue(), ee.getDefaultMessage())
-        );
-
         logger.error("DTO Validation Error 400 return: " + firstError);
-        return new ResponseEntity<ErrorResponse>(error, HttpStatus.BAD_REQUEST);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(error);
     }
 
     // Handle path/query param validation errors
@@ -59,7 +56,10 @@ public class GlobalExceptionHandler {
         );
 
         logger.error("URI Path Validation Error 400 return: " + firstError);
-        return new ResponseEntity<ErrorResponse>(error, HttpStatus.BAD_REQUEST);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(error);
     }
 
     // Handle not found
@@ -72,7 +72,10 @@ public class GlobalExceptionHandler {
         );
 
         logger.error("Entity Data not founded 404 return: ");
-        return new ResponseEntity<ErrorResponse>(error, HttpStatus.NOT_FOUND);
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(error);
     }
 
 
@@ -85,6 +88,9 @@ public class GlobalExceptionHandler {
         );
 
         logger.error("Unhandeled Exception occured 500 return: " + ex.getMessage());
-        return new ResponseEntity<ErrorResponse>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(error);
     }
 }

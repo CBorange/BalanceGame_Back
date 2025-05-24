@@ -2,12 +2,14 @@ package com.saks.balance.backend.entity;
 import com.saks.balance.states.GlobalStates;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Builder
+@Getter
 public class GameTopic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
